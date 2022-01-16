@@ -1,0 +1,4 @@
+beautifulsoup4
+lxml
+requests==2.24.0
+PySocks
