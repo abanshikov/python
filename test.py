@@ -1,24 +1,21 @@
-from random import randint
 
+Для последовательной обработки файлов из некоторого списка, например:
 
-class RandomPassword:
-    def __init__(self, psw_chars, min_length, max_length):
-        self.__psw_chars = psw_chars
-        self.__min_length = min_length
-        self.__max_length= max_length
+filenames = ["boat.jpg", "web.png", "text.txt", "python.doc", "ava.8.jpg", "forest.jpeg", "eq_1.png", "eq_2.png", "my.html", "data.shtml"]
+Необходимо объявить класс ImageFileAcceptor, который бы выделял только файлы с указанными расширениями.
 
-    def __call__(self, *args, **kwargs):
-        psw = ""
-        for i in range(self.__min_length, randint(self.__min_length+1, self.__max_length)):
-            psw += self.__psw_chars[randint(0, len(self.__psw_chars)-1)]
+Для этого предполагается создавать объекты класса командой:
 
-        return psw
+acceptor = ImageFileAcceptor(extensions)
+где extensions - кортеж с допустимыми расширениями файлов, например: extensions = ('jpg', 'bmp', 'jpeg').
 
-min_length = 5
-max_length = 20
-psw_chars = "qwertyuiopasdfghjklzxcvbnm0123456789!@#$%&*"
+А, затем, использовать объект acceptor в стандартной функции filter языка Python следующим образом:
 
-rnd = RandomPassword(psw_chars, min_length, max_length)
-psw = rnd()
+image_filenames = filter(acceptor, filenames)
+Пример использования класса (эти строчки в программе писать не нужно):
 
-lst_pass = [rnd() for i in range(3)]
+filenames = ["boat.jpg", "web.png", "text.txt", "python.doc", "ava.jpg", "forest.jpeg", "eq_1.png", "eq_2.png"]
+acceptor = ImageFileAcceptor(('jpg', 'bmp', 'jpeg'))
+image_filenames = filter(acceptor, filenames)
+print(list(image_filenames))  # ["boat.jpg", "ava.jpg", "forest.jpeg"]
+P.S. Ваша задача только объявить класс ImageFileAcceptor. На экран ничего выводить не нужно. 
