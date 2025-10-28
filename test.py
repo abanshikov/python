@@ -29,3 +29,9 @@ class Complex:
     @img.setter
     def img(self, value):
         self.__img = value
+
+
+cmp = Complex(real=7, img=8)
+cmp.real = 3
+cmp.imp = 4
+c_abs = abs(cmp)
