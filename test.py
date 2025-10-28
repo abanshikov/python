@@ -1,19 +1,26 @@
-import sys
+Объявите класс с именем Model, объекты которого создаются командой:
 
-# здесь пишите программу
+model = Model()
+Объявите в этом классе метод query() для формирования записи базы данных. Использоваться этот метод должен следующим образом:
 
-lst_in = list(map(str.strip, sys.stdin.readlines()))
+model.query(field_1=value_1, field_2=value_2, ..., field_N=value_N)
 
+Например:
 
+model.query(id=1, fio='Sergey', old=33)
+Все эти переданные данные должны сохраняться внутри объекта model класса Model. Затем, при выполнении команды:
 
-class Book:
-    def __init__(self, title: str, author: str, pages: int):
-        self.__title: str = title
-        self.__author: str = author
-        self.__pages: int = pages
+print(model)
+В консоль должна выводиться информация об объекте в формате:
 
-    def __str__(self):
-        return f"Книга: {self.__title}; {self.__author}; {self.__pages}"
+"Model: field_1 = value_1, field_2 = value_2, ..., field_N = value_N"
 
+Например:
 
-book = Book(lst_in[0], lst_in[1], lst_in[2])
+"Model: id = 1, fio = Sergey, old = 33"
+
+Если метод query() не вызывался, то в консоль выводится строка:
+
+"Model"
+
+P.S. В программе нужно только объявить класс, выводить в консоль ничего не нужно.
