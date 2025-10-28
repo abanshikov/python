@@ -1,37 +1,29 @@
-from math import sqrt
+Объявите класс с именем RadiusVector для описания и работы с n-мерным вектором (у которого n координат). Объекты этого класса должны создаваться командами:
 
+# создание 5-мерного радиус-вектора с нулевыми значениями координат (аргумент - целое число больше 1)
+vector = RadiusVector(5)  # координаты: 0, 0, 0, 0, 0
 
-class Complex:
-    def __init__(self, real: (int, float), img: (int, float)):
-        self.__real = real
-        self.__img = img
+# создание 4-мерного радиус-вектора с координатами: 1, -5, 3.4, 10 (координаты - любые целые или вещественные числа)
+vector = RadiusVector(1, -5, 3.4, 10)
+То есть, при передаче одного значения, оно интерпретируется, как размерность нулевого радиус-вектора. Если же передается более одного числового аргумента, то они интерпретируются, как координаты радиус-вектора.
 
-    def __setattr__(self, key, value):
-        if key in ("rear", "img") and type(value) not in (int, float):
-            raise ValueError("Неверный тип данных.")
-        object.__setattr__(self, key, value)
+Класс RadiusVector должен содержать методы:
 
-    def __abs__(self):
-        return sqrt(self.real**2 + self.img**2)
+set_coords(coord_1, coord_2, ..., coord_N) - для изменения координат радиус-вектора;
+get_coords() - для получения текущих координат радиус-вектора (в виде кортежа).
 
-    @property
-    def real(self):
-        return self.__real
+Также с объектами класса RadiusVector должны поддерживаться следующие функции:
 
-    @real.setter
-    def real(self, value):
-        self.__real = value
+len(vector) - возвращает число координат радиус-вектора (его размерность);
+abs(vector) - возвращает длину радиус-вектора (вычисляется как: sqrt(coord_1*coord_1 + coord_2*coord_2 + ... + coord_N*coord_N) - корень квадратный из суммы квадратов координат).
 
-    @property
-    def img(self):
-        return self.__img
+Пример использования класса RadiusVector (эти строчки в программе писать не нужно):
 
-    @img.setter
-    def img(self, value):
-        self.__img = value
-
-
-cmp = Complex(real=7, img=8)
-cmp.real = 3
-cmp.imp = 4
-c_abs = abs(cmp)
+vector3D = RadiusVector(3)
+vector3D.set_coords(3, -5.6, 8)
+a, b, c = vector3D.get_coords()
+vector3D.set_coords(3, -5.6, 8, 10, 11) # ошибки быть не должно, последние две координаты игнорируются
+vector3D.set_coords(1, 2) # ошибки быть не должно, меняются только первые две координаты
+res_len = len(vector3D) # res_len = 3
+res_abs = abs(vector3D)
+P.S. На экран ничего выводить не нужно, только объявить класс RadiusVector.
