@@ -15,7 +15,7 @@ class Dimensions:
     def a(self):
         return self.__a
 
-    @a.getter
+    @a.setter
     def a(self, value):
         if self.__check_value(value):
             self.__a = value
@@ -24,7 +24,7 @@ class Dimensions:
     def b(self):
         return self.__b
 
-    @a.getter
+    @a.setter
     def b(self, value):
         if self.__check_value(value):
             self.__b = value
@@ -33,7 +33,7 @@ class Dimensions:
     def c(self):
         return self.__c
 
-    @a.getter
+    @a.setter
     def c(self, value):
         if self.__check_value(value):
             self.__c = value
