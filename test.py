@@ -1,83 +1,28 @@
-class Dimensions:
-    MIN_DIMENSION = 10
-    MAX_DIMENSION = 10000
+Перед вами стоит задача выделения файлов с определенными расширениями из списка файлов, например:
 
-    @classmethod
-    def __check_value(cls, x):
-        return cls.MIN_DIMENSION <= x <= cls.MAX_DIMENSION
+filenames = ["boat.jpg", "ans.web.png", "text.txt", "www.python.doc", "my.ava.jpg", "forest.jpeg", "eq_1.png", "eq_2.xls"]
+Для этого необходимо объявить класс FileAcceptor, объекты которого создаются командой:
 
-    def __init__(self, a, b, c):
-        self.__a = a if self.__check_value(a) else 0
-        self.__b = b if self.__check_value(b) else 0
-        self.__c = c if self.__check_value(c) else 0
+acceptor = FileAcceptor(ext1, ..., extN)
+где ext1, ..., extN - строки с допустимыми расширениями файлов, например: 'jpg', 'bmp', 'jpeg'.
 
-    @property
-    def a(self):
-        return self.__a
+После этого предполагается использовать объект acceptor в стандартной функции filter языка Python следующим образом:
 
-    @a.setter
-    def a(self, value):
-        if self.__check_value(value):
-            self.__a = value
+filenames = list(filter(acceptor, filenames))
+То есть, объект acceptor должен вызываться как функция:
 
-    @property
-    def b(self):
-        return self.__b
+acceptor(filename) 
+и возвращать True, если файл с именем filename содержит расширения, указанные при создании acceptor, и False - в противном случае. Кроме того, с объектами класса FileAcceptor должен выполняться оператор:
 
-    @a.setter
-    def b(self, value):
-        if self.__check_value(value):
-            self.__b = value
+acceptor12 = acceptor1 + acceptor2
+Здесь формируется новый объект acceptor12 с уникальными расширениями первого и второго объектов. Например:
 
-    @property
-    def c(self):
-        return self.__c
+acceptor1 = FileAcceptor("jpg", "jpeg", "png")
+acceptor2 = FileAcceptor("png", "bmp")
+acceptor12 = acceptor1 + acceptor2    # ("jpg", "jpeg", "png", "bmp")
+Пример использования класса (эти строчки в программе писать не нужно):
 
-    @a.setter
-    def c(self, value):
-        if self.__check_value(value):
-            self.__c = value
-
-    def __ge__(self, dim):
-        if not isinstance(dim, Dimensions):
-            raise TypeError("Операнд справа должен иметь тип Dimensions")
-
-        return self.volume() >= dim.a * dim.b * dim.c
-
-    def __gt__(self, dim):
-        if not isinstance(dim, Dimensions):
-            raise TypeError("Операнд справа должен иметь тип Dimensions")
-
-        return self.volume() > dim.a * dim.b * dim.c
-
-    def __le__(self, dim):
-        if not isinstance(dim, Dimensions):
-            raise TypeError("Операнд справа должен иметь тип Dimensions")
-
-        return self.volume() <= dim.a * dim.b * dim.c
-
-    def __lt__(self, dim):
-        if not isinstance(dim, Dimensions):
-            raise TypeError("Операнд справа должен иметь тип Dimensions")
-
-        return self.volume() < dim.a * dim.b * dim.c
-
-    def volume(self):
-        return self.__a * self.__b * self.__c
-
-
-class ShopItem:
-    def __init__(self, name, price, dim):
-        self.name = name
-        self.price = price
-        self.dim = dim
-
-
-lst_shop = [
-        ShopItem('кеды', 1024, Dimensions(40, 30, 120)),
-        ShopItem('зонт', 500.24, Dimensions(10, 20, 50)),
-        ShopItem('холодильник', 40000, Dimensions(2000, 600, 500)),
-        ShopItem('табуретка', 2000.99, Dimensions(500, 200, 200)),
-        ]
-
-lst_shop_sorted = sorted(lst_shop, key=lambda x: x.dim.volume())
+acceptor_images = FileAcceptor("jpg", "jpeg", "png")
+acceptor_docs = FileAcceptor("txt", "doc", "xls")
+filenames = list(filter(acceptor_images + acceptor_docs, filenames))
+P.S. На экран в программе ничего выводить не нужно.
