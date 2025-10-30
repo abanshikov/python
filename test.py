@@ -1,25 +1,40 @@
-class Body:
-    def __init__(self, name, ro, volume):
-        self.name = name
-        self.ro: (int, float) = ro
-        self.volume: (int, float) = volume
-        self.m: (int, float) = ro * volume
+Объявите в программе класс с именем Box (ящик), объекты которого должны создаваться командой:
 
-    def __eq__(self, other):
-        if not isinstance(other, Body):
-            raise TypeError("Операнд справа должен иметь тип числа или Body")
+box = Box()
+А сам класс иметь следующие методы:
 
-        m = other if isinstance(other, (int, float)) else other.m
-        return self.m == m
+add_thing(self, obj) - добавление предмета obj (объект другого класса Thing) в ящик;
+get_things(self) - получение списка объектов ящика.
 
-    def __gt__(self, other):
-        if not isinstance(other, Body):
-            raise TypeError("Операнд справа должен иметь тип Body")
+Для описания предметов необходимо объявить еще один класс Thing. Объекты этого класса должны создаваться командой:
 
-        return self.m > other.m
+obj = Thing(name, mass)
+где name - название предмета (строка); mass - масса предмета (число: целое или вещественное).
+Объекты класса Thing должны поддерживать операторы сравнения:
 
-    def __lt__(self, other):
-        if not isinstance(other, (int, float)):
-            raise TypeError("Операнд справа должен иметь тип int или float")
+obj1 == obj2
+obj1 != obj2
+Предметы считаются равными, если у них одинаковые названия name (без учета регистра) и массы mass.
 
-        return self.m < other
+Также объекты класса Box должны поддерживать аналогичные операторы сравнения:
+
+box1 == box2
+box1 != box2
+Ящики считаются равными, если одинаковы их содержимое (для каждого объекта класса Thing одного ящика и можно найти ровно один равный объект из второго ящика).
+
+Пример использования классов:
+
+b1 = Box()
+b2 = Box()
+
+b1.add_thing(Thing('мел', 100))
+b1.add_thing(Thing('тряпка', 200))
+b1.add_thing(Thing('доска', 2000))
+
+b2.add_thing(Thing('тряпка', 200))
+b2.add_thing(Thing('мел', 100))
+b2.add_thing(Thing('доска', 2000))
+
+res = b1 == b2 # True
+P.S. В программе только объявить классы, выводить на экран ничего не нужно.
+ 
