@@ -1,28 +1,53 @@
-Объявите в программе класс с именем Box (ящик), объекты которого должны создаваться командой:
+class Box:
+    def __init__(self):
+        self.things = []
 
-box = Box()
-А сам класс иметь следующие методы:
+    def add_thing(self, obj):
+        self.things.append(obj)
 
-add_thing(self, obj) - добавление предмета obj (объект другого класса Thing) в ящик;
-get_things(self) - получение списка объектов ящика.
+    def get_things(self):
+        return self.things
 
-Для описания предметов необходимо объявить еще один класс Thing. Объекты этого класса должны создаваться командой:
+    def __eq__(self, other):
+        if not isinstance(other, Box):
+            raise TypeError("Операнд справа должен иметь тип Box")
 
-obj = Thing(name, mass)
-где name - название предмета (строка); mass - масса предмета (число: целое или вещественное).
-Объекты класса Thing должны поддерживать операторы сравнения:
+        if len(self.things) != len(other.things):
+            return False
 
-obj1 == obj2
-obj1 != obj2
-Предметы считаются равными, если у них одинаковые названия name (без учета регистра) и массы mass.
+        things_1 = self.things.copy()
+        things_2 = other.things.copy()
 
-Также объекты класса Box должны поддерживать аналогичные операторы сравнения:
+        for thing_1 in things_1:
+            found = False
+            for thing_2 in things_2:
+                if thing_1 == thing_2:
+                    found = True
+                    things_2.remove(thing_2)
+                    break
+            if not found:
+                return False
 
-box1 == box2
-box1 != box2
-Ящики считаются равными, если одинаковы их содержимое (для каждого объекта класса Thing одного ящика и можно найти ровно один равный объект из второго ящика).
+        return True
 
-Пример использования классов:
+
+class Thing:
+    def __init__(self, name: str, mass: (int, float)):
+        self.name = name
+        self.mass = mass
+
+    def __eq__(self, other):
+        if not isinstance(other, Thing):
+            raise TypeError("Операнд справа должен иметь тип Thing")
+
+        return self.name.lower() == other.name.lower() and self.mass == other.mass
+
+    def __ne__(self, other):
+        if not isinstance(other, Thing):
+            raise TypeError("Операнд справа должен иметь тип Thing")
+
+        return self.name.lower() != other.name.lower() and self.mass != other.mass
+
 
 b1 = Box()
 b2 = Box()
@@ -36,5 +61,3 @@ b2.add_thing(Thing('мел', 100))
 b2.add_thing(Thing('доска', 2000))
 
 res = b1 == b2 # True
-P.S. В программе только объявить классы, выводить на экран ничего не нужно.
- 
