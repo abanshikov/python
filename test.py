@@ -1,16 +1,25 @@
-Необходимо объявить класс Body (тело), объекты которого создаются командой:
+class Body:
+    def __init__(self, name, ro, volume):
+        self.name = name
+        self.ro: (int, float) = ro
+        self.volume: (int, float) = volume
+        self.m: (int, float) = ro * volume
 
-body = Body(name, ro, volume)
-где name - название тела (строка); ro - плотность тела (число: вещественное или целочисленное); volume - объем тела  (число: вещественное или целочисленное).
+    def __eq__(self, other):
+        if not isinstance(other, Body):
+            raise TypeError("Операнд справа должен иметь тип числа или Body")
 
-Для объектов класса Body должны быть реализованы операторы сравнения:
+        m = other if isinstance(other, (int, float)) else other.m
+        return self.m == m
 
-body1 > body2  # True, если масса тела body1 больше массы тела body2
-body1 == body2 # True, если масса тела body1 равна массе тела body2
-body1 < 10     # True, если масса тела body1 меньше 10
-body2 == 5     # True, если масса тела body2 равна 5
-Масса тела вычисляется по формуле:
+    def __gt__(self, other):
+        if not isinstance(other, Body):
+            raise TypeError("Операнд справа должен иметь тип Body")
 
-m = ro * volume
+        return self.m > other.m
 
-P.S. В программе только объявить класс, выводить на экран ничего не нужно.
+    def __lt__(self, other):
+        if not isinstance(other, (int, float)):
+            raise TypeError("Операнд справа должен иметь тип int или float")
+
+        return self.m < other
