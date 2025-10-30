@@ -1,38 +1,83 @@
-Объявите класс Dimensions (габариты) с атрибутами:
+class Dimensions:
+    MIN_DIMENSION = 10
+    MAX_DIMENSION = 10000
 
-MIN_DIMENSION = 10
-MAX_DIMENSION = 10000
-Каждый объект класса Dimensions должен создаваться командой:
+    @classmethod
+    def __check_value(cls, x):
+        return cls.MIN_DIMENSION <= x <= cls.MAX_DIMENSION
 
-d3 = Dimensions(a, b, c)   # a, b, c - габаритные размеры
-Значения a, b, c должны сохраняться в локальных приватных атрибутах __a, __b, __c объектах этого класса.
+    def __init__(self, a, b, c):
+        self.__a = a if self.__check_value(a) else 0
+        self.__b = b if self.__check_value(b) else 0
+        self.__c = c if self.__check_value(c) else 0
 
-Для изменения и доступа к приватным атрибутам в классе Dimensions должны быть объявлены объекты-свойства (property) с именами: a, b, c. Причем, в момент присваивания нового значения должна выполняться проверка попадания числа в диапазон [MIN_DIMENSION; MAX_DIMENSION]. Если число не попадает, то оно игнорируется и существующее значение не меняется.
+    @property
+    def a(self):
+        return self.__a
 
-С объектами класса Dimensions должны выполняться следующие операторы сравнения:
+    @a.getter
+    def a(self, value):
+        if self.__check_value(value):
+            self.__a = value
 
-dim1 >= dim2   # True, если объем dim1 больше или равен объему dim2
-dim1 > dim2    # True, если объем dim1 больше объема dim2
-dim1 <= dim2   # True, если объем dim1 меньше или равен объему dim2
-dim1 < dim2    # True, если объем dim1 меньше объема dim2
-Объявите в программе еще один класс с именем ShopItem (товар), объекты которого создаются командой:
+    @property
+    def b(self):
+        return self.__b
 
-item = ShopItem(name, price, dim)
-где name - название товара (строка); price - цена товара (целое или вещественное число); dim - габариты товара (объект класса Dimensions).
+    @a.getter
+    def b(self, value):
+        if self.__check_value(value):
+            self.__b = value
 
-В каждом объекте класса ShopItem должны создаваться локальные атрибуты:
+    @property
+    def c(self):
+        return self.__c
 
-name - название товара;
-price - цена товара;
-dim - габариты товара (объект класса Dimensions).
+    @a.getter
+    def c(self, value):
+        if self.__check_value(value):
+            self.__c = value
 
-Создайте список с именем lst_shop из четырех товаров со следующими данными:
+    def __ge__(self, dim):
+        if not isinstance(dim, Dimensions):
+            raise TypeError("Операнд справа должен иметь тип Dimensions")
 
-- кеды; 1024; (40, 30, 120)
-- зонт; 500.24; (10, 20, 50)
-- холодильник; 40000; (2000, 600, 500)
-- табуретка; 2000.99; (500, 200, 200)
+        return self.volume() >= dim.a * dim.b * dim.c
 
-Сформируйте новый список lst_shop_sorted с упорядоченными по возрастанию объема (габаритов) товаров списка lst_shop, используя стандартную функцию sorted() языка Python и ее параметр key для настройки сортировки. Прежний список lst_shop должен оставаться без изменений.
+    def __gt__(self, dim):
+        if not isinstance(dim, Dimensions):
+            raise TypeError("Операнд справа должен иметь тип Dimensions")
 
-P.S. На экран в программе ничего выводить не нужно.
+        return self.volume() > dim.a * dim.b * dim.c
+
+    def __le__(self, dim):
+        if not isinstance(dim, Dimensions):
+            raise TypeError("Операнд справа должен иметь тип Dimensions")
+
+        return self.volume() <= dim.a * dim.b * dim.c
+
+    def __lt__(self, dim):
+        if not isinstance(dim, Dimensions):
+            raise TypeError("Операнд справа должен иметь тип Dimensions")
+
+        return self.volume() < dim.a * dim.b * dim.c
+
+    def volume(self):
+        return self.__a * self.__b * self.__c
+
+
+class ShopItem:
+    def __init__(self, name, price, dim):
+        self.name = name
+        self.price = price
+        self.dim = dim
+
+
+lst_shop = [
+        ShopItem('кеды', 1024, Dimensions(40, 30, 120)),
+        ShopItem('зонт', 500.24, Dimensions(10, 20, 50)),
+        ShopItem('холодильник', 40000, Dimensions(2000, 600, 500)),
+        ShopItem('табуретка', 2000.99, Dimensions(500, 200, 200)),
+        ]
+
+lst_shop_sorted = sorted(lst_shop, key=lambda x: x.dim.volume())
