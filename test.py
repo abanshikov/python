@@ -1,22 +1,32 @@
-from math import sqrt
+Объявите класс Track (маршрут), объекты которого создаются командой:
 
+track = Track(start_x, start_y)
+где start_x, start_y - координаты начала маршрута (целые или вещественные числа).
 
-class RadiusVector:
-    def __init__(self, *args):
-        if len(args) == 1:
-            self.__coords = [0] * args[0]
-        else:
-            self.__coords = args
+Каждый линейный сегмент маршрута определяется классом TrackLine, объекты которого создаются командой:
 
-    def set_coords(self, *args):
-        for i in range(min(len(args), len(self.__coords))):
-            self.__coords[i] = float(args[i])
+line = TrackLine(to_x, to_y, max_speed)
+где to_x, to_y - координаты следующей точки маршрута (целые или вещественные числа); max_speed - максимальная скорость на данном участке (целое число).
 
-    def get_coords(self):
-        return tuple(self.__coords)
+Для формирования и работы с маршрутом в классе Track должны быть объявлены следующие методы:
 
-    def __len__(self):
-        return len(self.__coords)
+add_track(self, tr) - добавление линейного сегмента маршрута (следующей точки);
+get_tracks(self) - получение кортежа из объектов класса TrackLine.
 
-    def __abs__(self):
-        return sqrt(sum([x**2 for x in self.__coords]))
+Также для объектов класса Track должны быть реализованные следующие операции сравнения:
+
+track1 == track2  # маршруты равны, если равны их длины
+track1 != track2  # маршруты не равны, если не равны их длины
+track1 > track2  # True, если длина пути для track1 больше, чем для track2
+track1 < track2  # True, если длина пути для track1 меньше, чем для track2
+И функция:
+
+n = len(track) # возвращает целочисленную длину маршрута (привести к типу int) для объекта track
+Создайте два маршрута track1 и track2 с координатами:
+
+1-й маршрут: (0; 0), (2; 4), (5; -4) и max_speed = 100
+2-й маршрут: (0; 1), (3; 2), (10; 8) и max_speed = 90
+
+Сравните их между собой на равенство. Результат сравнения сохраните в переменной res_eq.
+
+P.S. На экран в программе ничего выводить не нужно.
