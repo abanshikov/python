@@ -1,43 +1,31 @@
-lst_in = ['Системный блок: 1500 75890.56',
-          'Монитор Samsung: 2000 34000',
-          'Клавиатура: 200.44 545',
-          'Монитор Samsung: 2000 34000']
+lst_in = [
+    'Python; Балакирев С.М.; 2020',
+    'Python ООП; Балакирев С.М.; 2021',
+    'Python ООП; Балакирев С.М.; 2022',
+    'Python; Балакирев С.М.; 2021',
+]
 
-class ShopItem:
-    def __init__(self, name, weight, price):
-        self.name = name
-        self.weight = weight
-        self.price = price
-
-    def __eq__(self, other):
-        return self.name.lower() == other.name.lower() and self.weight == other.weight and self.price == other.price
-
-    def __hash__(self):
-        return hash((self.name.lower(), self.weight, self.price))
-
-    def __str__(self):
-        return self.name
-
-    def __repr__(self):
-        return self.name
-
+Из входного потока необходимо прочитать список строк командой:
 
 lst_in = list(map(str.strip, sys.stdin.readlines()))
-##lst_in = ['Системный блок: 1500 75890.56',
-##          'Монитор Samsung: 2000 34000',
-##          'Клавиатура: 200.44 545',
-##          'Монитор Samsung: 2000 34000']
+Каждая строка содержит информацию об учебном пособии в формате:
 
-shop_items = {}
-items = []
-for string in lst_in:
-    name = string.split(":")[0]
-    weight, price = (float(x) for x in string.split(":")[1].split())
+"Название; автор; год издания"
 
-    item = ShopItem(name, weight, price)
-    count_of_item = items.count(item) + 1
+Например:
 
-    shop_items[item] = [item, count_of_item]
-    items.append(item)
+Python; Балакирев С.М.; 2020
+Python ООП; Балакирев С.М.; 2021
+Python ООП; Балакирев С.М.; 2022
+Python; Балакирев С.М.; 2021
 
-##print(shop_items)
+Необходимо каждую из этих строк представить объектом класса BookStudy, которые создаются командой:
+
+bs = BookStudy(name, author, year)
+где name - название пособия (строка); author - автор пособия (строка); year - год издания (целое число). Такие же публичные локальные атрибуты должны быть в объектах класса BookStudy.
+
+Для каждого объекта реализовать вычисление хэша по двум атрибутам: name и author (без учета регистра).
+
+Сформировать список lst_bs из объектов класса BookStudy на основе прочитанных строк (списка lst_in). После этого определить число книг с уникальными хэшами. Это число сохранить через переменную unique_books (целое число).
+
+P.S. На экран ничего выводить не нужно.
