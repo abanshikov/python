@@ -1,23 +1,46 @@
-Объявите класс с именем Triangle, объекты которого создаются командой:
+from math import sqrt
 
-tr = Triangle(a, b, c)
-где a, b, c - длины сторон треугольника (числа: целые или вещественные). В классе Triangle объявите следующие дескрипторы данных:
 
-a, b, c - для записи и считывания длин сторон треугольника.
+class Triangle:
+    def __init__(self, a, b, c):
+        if not (a < b+c and b < a+c and c < a+b):
+            raise ValueError("с указанными длинами нельзя образовать треугольник")
+        self.__a = a
+        self.__b = b
+        self.__c = c
 
-При записи нового значения нужно проверять, что присваивается положительное число (целое или вещественное). Иначе, генерируется исключение командой:
+    @property
+    def a(self):
+        return self.__a
 
-raise ValueError("длины сторон треугольника должны быть положительными числами")
-Также нужно проверять, что все три стороны a, b, c могут образовывать стороны треугольника. То есть, должны выполняться условия:
+    @a.setter
+    def a(self, value):
+        self.__a = value
 
-a < b+c; b < a+c; c < a+b
+    @property
+    def b(self):
+        return self.__b
 
-Иначе генерируется исключение командой:
+    @b.setter
+    def b(self, value):
+        self.__b = value
 
-raise ValueError("с указанными длинами нельзя образовать треугольник")
-Наконец, с объектами класса Triangle должны выполняться функции:
+    @property
+    def c(self):
+        return self.__c
 
-len(tr) - возвращает периметр треугольника, приведенный к целому значению с помощью функции int();
-tr() - возвращает площадь треугольника (можно вычислить по формуле Герона: s = sqrt(p * (p-a) * (p-b) * (p-c)), где p - полупериметр треугольника).
+    @c.setter
+    def c(self, value):
+        self.__c = value
 
-P.S. На экран ничего выводить не нужно, только объявить класс Triangle.
+    def __setattr__(self, key, value):
+        if value  <= 0:
+            raise ValueError("длины сторон треугольника должны быть положительными числами")
+        object.__setattr__(self, key, value)
+
+    def __len__(self):
+        return int(self.__a + self.__b + self.__c)
+
+    def tr(self):
+        p = len(self)
+        return sqrt(p * (p - self.__a) * (p - self.__b) * (p - self.__c))
