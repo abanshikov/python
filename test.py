@@ -41,6 +41,6 @@ class Triangle:
     def __len__(self):
         return int(self.__a + self.__b + self.__c)
 
-    def tr(self):
-        p = len(self)
-        return sqrt(p * (p - self.__a) * (p - self.__b) * (p - self.__c))
+    def __call__(self):
+        p = (self.a + self.b + self.c) / 2
+        return sqrt(p * (p - self.a) * (p - self.b) * (p - self.c))
