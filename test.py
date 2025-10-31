@@ -1,27 +1,21 @@
-class BookStudy:
-    def __init__(self, name, author, year):
-        self.name = name
-        self.author = author
-        self.yeat = year
+Объявите класс с именем Dimensions, объекты которого создаются командой:
 
-    def __eq__(self, other):
-        return self.name.lower() == other.name.lower() and self.author.lower() == other.author.lower()
+d = Dimensions(a, b, c)
+где a, b, c - положительные числа (целые или вещественные), описывающие габариты некоторого тела: высота, ширина и глубина.
 
-    def __hash__(self):
-        return hash((self.name.lower(), self.author.lower()))
+Каждый объект класса Dimensions должен иметь аналогичные публичные атрибуты a, b, c (с соответствующими числовыми значениями). Также для каждого объекта должен вычисляться хэш на основе всех трех габаритов: a, b, c.
 
-    def __str__(self):
-        return f"{self.name}: {self.author}"
+С помощью функции input() прочитайте из входного потока строку, записанную в формате:
 
-    def __repr__(self):
-        return f"{self.name}: {self.author}"
+"a1 b1 c1; a2 b2 c2; ... ;aN bN cN"
 
+Например:
 
-lst_bs = []
-for _ in lst_in:
-    name, author, year = _.split(";")
-    book = BookStudy(name.strip(), author.strip(), int(year))
-    lst_bs.append(book)
+"1 2 3; 4 5 6.78; 1 2 3; 0 1 2.5"
 
-unique_books = len(set(lst_bs))
-#print(unique_books)
+Если какой-либо габарит оказывается отрицательным значением или равен нулю, то при создании объектов должна генерироваться ошибка командой:
+
+raise ValueError("габаритные размеры должны быть положительными числами")
+Сформируйте на основе прочитанной строки список lst_dims из объектов класса Dimensions. После этого отсортируйте этот список по возрастанию (неубыванию) хэшей этих объектов так, чтобы объекты с равными хэшами стояли друг за другом.
+
+P.S. На экран ничего выводить не нужно
