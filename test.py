@@ -1,36 +1,23 @@
-l_inp = s_inp.split(";")
+Объявите класс с именем Triangle, объекты которого создаются командой:
 
+tr = Triangle(a, b, c)
+где a, b, c - длины сторон треугольника (числа: целые или вещественные). В классе Triangle объявите следующие дескрипторы данных:
 
-class Dimensions:
-    def __init__(self, a, b, c):
-        self.a = a
-        self.b = b
-        self.c = c
+a, b, c - для записи и считывания длин сторон треугольника.
 
-    def __eq__(self, other):
-        return self.a == other.a and self.b == other.b and self.c == other.c
+При записи нового значения нужно проверять, что присваивается положительное число (целое или вещественное). Иначе, генерируется исключение командой:
 
-    def __hash__(self):
-        return hash((self.a, self.b, self.c))
+raise ValueError("длины сторон треугольника должны быть положительными числами")
+Также нужно проверять, что все три стороны a, b, c могут образовывать стороны треугольника. То есть, должны выполняться условия:
 
-    def __setattr__(self, key, value):
-        if value  <= 0:
-            raise ValueError("габаритные размеры должны быть положительными числами")
-        object.__setattr__(self, key, value)
+a < b+c; b < a+c; c < a+b
 
-    def __str__(self):
-        return f"a={self.a} b={self.b} c={self.c}"
+Иначе генерируется исключение командой:
 
-    def __repr__(self):
-        return f"a={self.a} b={self.b} c={self.c}"
+raise ValueError("с указанными длинами нельзя образовать треугольник")
+Наконец, с объектами класса Triangle должны выполняться функции:
 
+len(tr) - возвращает периметр треугольника, приведенный к целому значению с помощью функции int();
+tr() - возвращает площадь треугольника (можно вычислить по формуле Герона: s = sqrt(p * (p-a) * (p-b) * (p-c)), где p - полупериметр треугольника).
 
-lst_dims = []
-for string in l_inp:
-    a, b, c = (float(_) for _ in string.split())
-    lst_dims.append(Dimensions(a, b, c))
-
-# print(lst_dims)
-
-lst_dims.sort(key=lambda x: hash(x))
-# print(lst_dims)
+P.S. На экран ничего выводить не нужно, только объявить класс Triangle.
