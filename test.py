@@ -1,71 +1,35 @@
-import math
+lst_in = ['Балакирев; 34; 2048',
+'Mediel; 27; 0',
+'Влад; 18; 9012',
+'Nina P; 33; 0']
 
-class Triangle:
-    def __init__(self, a, b, c):
-        self._a = None
-        self._b = None
-        self._c = None
 
-        # Устанавливаем стороны через свойства для валидации
-        self.a = a
-        self.b = b
-        self.c = c
-        self._validate_triangle(self.a, self.b, self.c)
+Объявите в программе класс Player (игрок), объекты которого создаются командой:
 
-    @property
-    def a(self):
-        return self._a
+player = Player(name, old, score)
+где name - имя игрока (строка); old - возраст игрока (целое число); score - набранные очки в игре (целое число). В каждом объекте класса Player должны создаваться аналогичные локальные атрибуты: name, old, score.
 
-    @a.setter
-    def a(self, value):
-        if not isinstance(value, (int, float)) or value <= 0:
-            raise ValueError("длины сторон треугольника должны быть положительными числами")
+С объектами класса Player должна работать функция:
 
-        # После изменения стороны проверяем треугольник
-        if self._b is not None and self._c is not None:
-            self._validate_triangle(value, self._b, self._c)
+bool(player)
+которая возвращает True, если число очков больше нуля, и False - в противном случае.
 
-        self._a = value
+С помощью команды:
 
-    @property
-    def b(self):
-        return self._b
+lst_in = list(map(str.strip, sys.stdin.readlines()))
+считываются строки из входного потока в список строк lst_in. Каждая строка записана в формате:
 
-    @b.setter
-    def b(self, value):
-        if not isinstance(value, (int, float)) or value <= 0:
-            raise ValueError("длины сторон треугольника должны быть положительными числами")
+"имя; возраст; очки"
 
-        # После изменения стороны проверяем треугольник
-        if self._a is not None and self._c is not None:
-            self._validate_triangle(self._a, value, self._c)
+Например:
 
-        self._b = value
+Балакирев; 34; 2048
+Mediel; 27; 0
+Влад; 18; 9012
+Nina P; 33; 0
 
-    @property
-    def c(self):
-        return self._c
+Каждую строку списка lst_in необходимо представить в виде объекта класса Player с соответствующими данными. И из этих объектов сформировать список players.
 
-    @c.setter
-    def c(self, value):
-        if not isinstance(value, (int, float)) or value <= 0:
-            raise ValueError("длины сторон треугольника должны быть положительными числами")
+Отфильтруйте этот список (создайте новый: players_filtered), оставив всех игроков с числом очков больше нуля. Используйте для этого стандартную функцию filter() совместно с функцией bool() языка Python. 
 
-        # После изменения стороны проверяем треугольник
-        if self._a is not None and self._b is not None:
-            self._validate_triangle(self._a, self._b, value)
-
-        self._c = value
-
-    @staticmethod
-    def _validate_triangle(a, b, c):
-        if a is not None and b is not None and c is not None:
-            if not (a < b + c and b < a + c and c < a + b):
-                raise ValueError("с указанными длинами нельзя образовать треугольник")
-
-    def __len__(self):
-        return int(self._a + self._b + self._c)
-
-    def __call__(self):
-        p = (self._a + self._b + self._c) / 2
-        return math.sqrt(p * (p - self._a) * (p - self._b) * (p - self._c))
+P.S. На экран ничего выводить не нужно
