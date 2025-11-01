@@ -1,34 +1,11 @@
-class MailBox:
-    def __init__(self):
-        self.inbox_list = []
+Объявите класс Line, объекты которого создаются командой:
 
-    def receive(self):
-        for string in lst_in:
-            mail_from, title, content = string.split(";")
-            item = MailItem(mail_from, title, content)
-            self.inbox_list.append(item)
+line = Line(x1, y1, x2, y2)
+где x1, y1, x2, y2 - координаты начала линии (x1, y1) и координаты конца линии (x2, y2). Могут быть произвольными числами. В объектах класса Line должны создаваться соответствующие локальные атрибуты с именами x1, y1, x2, y2.
 
+В классе Line определить магический метод __len__() так, чтобы функция:
 
-class MailItem:
-    def __init__(self, mail_from, title, content):
-        self.mail_from = mail_from
-        self.title = title
-        self.content = content
-        self.is_read = False
+bool(line)
+возвращала False, если длина линии меньше 1.
 
-    def set_read(self, fl_read):
-        self.is_read = fl_read
-
-    def __bool__(self):
-        return self.is_read
-
-    def __repr__(self):
-        return f"{self.mail_from} ({self.title}): {self.content} [{self.is_read}]"
-
-
-mail = MailBox()
-mail.receive()
-mail.inbox_list[0].is_read = True
-mail.inbox_list[-1].is_read = True
-
-inbox_list_filtered = list(filter(bool, mail.inbox_list))
+P.S. На экран ничего выводить не нужно. Только объявить класс.
