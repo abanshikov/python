@@ -1,17 +1,25 @@
-Создается проект, в котором предполагается использовать списки из целых чисел. Для этого вам ставится задача создать класс с именем ListInteger с базовым классом list и переопределить три метода:
+class ListInteger(list):
+    @staticmethod
+    def __is_int(x):
+        if type(x) != int:
+            raise TypeError('можно передавать только целочисленные значения')
 
-__init__()
-__setitem__()
-append()
+    def __init__(self, lst):
+        for l in lst:
+            self.__is_int(l)
+        super().__init__(lst)
 
-так, чтобы список ListInteger содержал только целые числа. При попытке присвоить любой другой тип данных, генерировать исключение командой:
+    def __setitem__(self, key, value):
+        self.__is_int(value)
+        super().__setitem__(key, value)
 
-raise TypeError('можно передавать только целочисленные значения')
-Пример использования класса ListInteger (эти строчки в программе не писать):
+    def append(self, value):
+        self.__is_int(value)
+        super().append(value)
 
-s = ListInteger((1, 2, 3))
-s[1] = 10
-s.append(11)
-print(s)
-s[0] = 10.5 # TypeError
-P.S. В программе нужно объявить только класс. На экран выводить ничего не нужно.
+
+##s = ListInteger((1, 2, 3))
+##s[1] = 10
+##s.append(11)
+##print(s)
+##s[0] = 10.5 # TypeError
