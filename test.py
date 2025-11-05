@@ -1,27 +1,41 @@
-class Thing:
-    def __init__(self, name, price, weight):
-        self.name = name
-        self.price = price
-        self.weight = weight
+Объявите в программе следующие классы без содержимого (используйте оператор pass):
 
-    def __hash__(self):
-        return hash((self.name, self.price, self.weight))
+Protists, Plants, Animals, Mosses, Flowering, Worms, Mammals, Human, Monkeys
 
-    def __str__(self):
-        return f"name: {self.name} price: {self.price} weight: {self.weight}"
+и постройте схему наследования в соответствии со следующей иерархией древа жизни:
 
 
-class DictShop(dict):
-    def __init__(self, things=None):
-        things = {} if things is None else things
 
-        if not isinstance(things, dict):
-            raise TypeError('аргумент должен быть словарем')
-        if things and all(isinstance(key, Thing) for key in things):
-            raise TypeError('ключами могут быть только объекты класса Thing')
-        super().__init__(things)
+Затем, объявите в программе классы:
 
-    def __setitem__(self, key, value):
-        if type(key) != Thing:
-            raise TypeError('ключами могут быть только объекты класса Thing')
-        super().__setitem__(key, value)
+Monkey - наследуется от Monkeys и служит для описания обезьян;
+Person - наследуется от Human и служит для описания человека;
+Flower - наследуется от Flowering и служит для описания цветка;
+Worm - наследуется от Worms и служит для описания червей.
+
+Объекты этих классов должны создаваться командами:
+
+obj = Monkey(name, weight, old)
+obj = Person(name, weight, old)
+obj = Flower(name, weight, old)
+obj = Worm(name, weight, old)
+где name - наименование (или имя) объекта (строка); weight - вес (вещественное число); old - возраст (целое число). В каждом объекте любого из этих классов должны создаваться соответствующие атрибуты: name, weight, old.
+
+Создайте в программе следующие объекты и сохраните их в виде списка lst_objs:
+
+Monkey: "мартышка", 30.4, 7
+Monkey: "шимпанзе", 24.6, 8
+Person: "Балакирев", 88, 34
+Person: "Верховный жрец", 67.5, 45
+Flower: "Тюльпан", 0.2, 1
+Flower: "Роза", 0.1, 2
+Worm: "червь", 0.01, 1
+Worm: "червь 2", 0.02, 1
+
+Затем, используя функции isinstance() и генератор списков (List comprehensions), сформируйте следующие списки из указанных объектов:
+
+lst_animals - все объекты, относящиеся к животным (Animals);
+lst_plants - все объекты, относящиеся к растениям (Plants);
+lst_mammals - все объекты, относящиеся к млекопитающим (Mammals).
+
+P.S. В программе на экран выводить ничего не нужно.
