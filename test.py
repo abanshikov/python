@@ -1,68 +1,20 @@
-class Protists:
-    def __init__(self, name, weight, old):
-        self.name = name
-        self.weight = weight
-        self.old = old
+Известно, что с объектами класса tuple можно складывать только такие же объекты (кортежи). Например:
 
-class Plants(Protists):
-    def __init__(self, *args):
-        super().__init__(*args)
+t1 = (1, 2, 3)
+t2 = t1 + (4, 5) # (1, 2, 3, 4, 5)
+Если же мы попытаемся прибавить любой другой итерируемый объект, например, список:
 
-class Animals(Protists):
-    def __init__(self, *args):
-        super().__init__(*args)
+t2 = t1 + [4, 5]
+то возникнет ошибка. Предлагается поправить этот функционал и создать свой собственный класс Tuple, унаследованный от базового класса tuple и поддерживающий оператор:
 
-class Mosses(Plants):
-    def __init__(self, *args):
-        super().__init__(*args)
+t1 = Tuple(iter_obj)
+t2 = t1 + iter_obj  # создается новый объект класса Tuple с новым (соединенным) набором данных
+где iter_obj - любой итерируемый объект (список, словарь, строка, множество, кортеж и т.п.)
 
-class Flowering(Plants):
-    def __init__(self, *args):
-        super().__init__(*args)
+Пример использования класса (эти строчки в программе не писать):
 
-class Worms(Animals):
-    def __init__(self, *args):
-        super().__init__(*args)
-
-class Mammals(Animals):
-    def __init__(self, *args):
-        super().__init__(*args)
-
-class Human(Mammals):
-    def __init__(self, *args):
-        super().__init__(*args)
-
-class Monkeys(Mammals):
-    def __init__(self, *args):
-        super().__init__(*args)
-
-class Monkey(Monkeys):
-    def __init__(self, *args):
-        super().__init__(*args)
-
-class Person(Human):
-    def __init__(self, *args):
-        super().__init__(*args)
-
-class Flower(Flowering):
-    def __init__(self, *args):
-        super().__init__(*args)
-
-class Worm(Worms):
-    def __init__(self, *args):
-        super().__init__(*args)
-
-
-lst_objs = list()
-lst_objs.append(Monkey("мартышка", 30.4, 7))
-lst_objs.append(Monkey("шимпанзе", 24.6, 8))
-lst_objs.append(Person("Балакирев", 88, 34))
-lst_objs.append(Person("Верховный жрец", 67.5, 45))
-lst_objs.append(Flower("Тюльпан", 0.2, 1))
-lst_objs.append(Flower("Роза", 0.1, 2))
-lst_objs.append(Worm("червь", 0.01, 1))
-lst_objs.append(Worm("червь 2", 0.02, 1))
-
-lst_animals = [item for item in lst_objs if isinstance(item, Animals)]
-lst_plants = [item for item in lst_objs if isinstance(item, Plants)]
-lst_mammals = [item for item in lst_objs if isinstance(item, Mammals)]
+t = Tuple([1, 2, 3])
+t = t + "Python"
+print(t)   # (1, 2, 3, 'P', 'y', 't', 'h', 'o', 'n')
+t = (t + "Python") + "ООП"
+P.S. В программе нужно объявить только класс. На экран выводить ничего не нужно.
