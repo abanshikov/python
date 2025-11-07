@@ -1,21 +1,18 @@
-class VideoRating:
-    def __init__(self):
-        self.__rating = 0
+Объявите класс Animal (животное), объекты которого создаются командой:
 
-    @property
-    def rating(self):
-        return self.__rating
+an = Animal(name, kind, old)
+где name - название животного (строка); kind - вид животного (строка); old - возраст (целое число). В каждом объекте этого класса должны создаваться соответствующие приватные атрибуты: __name, __kind, __old.
 
-    @rating.setter
-    def rating(self, value):
-        if type(value) != int or 0 <= value <= 5:
-            raise ValueError('неверное присваиваемое значение')
-        self.__rating = value
+В классе Animal должны быть объявлены объекты-свойства для изменения и считывания приватных атрибутов:
 
+name - для работы с приватным атрибутом __name;
+kind - для работы с приватным атрибутом __kind;
+old - для работы с приватным атрибутом __old.
 
-class VideoItem:
-    def __init__(self, title, descr, path):
-        self.title = title
-        self.descr = descr
-        self.path = path
-        self.rating = VideoRating()
+Создайте в программе список с именем animals, который содержит три объекта класса Animal со следующими данными:
+
+Васька; дворовый кот; 5
+Рекс; немецкая овчарка; 8
+Кеша; попугай; 3
+
+P.S. В программе нужно объявить только класс и создать список animals. На экран выводить ничего не нужно.
