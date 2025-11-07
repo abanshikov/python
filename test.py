@@ -1,34 +1,47 @@
-class Animal:
-    def __init__(self, name, kind, old):
-        self.__name = name
-        self.__kind = kind
-        self.__old = old
+Объявите класс Furniture (мебель), объекты которого создаются командой:
 
-    @property
-    def name(self):
-        return self.__name
+f = Furniture(name, weight)
+где name - название предмета (строка); weight - вес предмета (целое или вещественное число).
 
-    @name.setter
-    def name(self, value):
-        self.__name = value
+В каждом объекте класса Furniture должны создаваться защищенные локальные атрибуты с именами _name и _weight. В самом классе Furniture нужно объявить приватные методы:
 
-    @property
-    def kind(self):
-        return self.__kind
+__verify_name() - для проверки корректности имени;
+__verify_weight() - для проверки корректности веса.
 
-    @kind.setter
-    def kind(self, value):
-        self.__kind = value
+Метод __verify_name() проверяет, что имя должно быть строкой, если это не так, то генерируется исключение командой:
 
-    @property
-    def old(self):
-        return self.__old
+raise TypeError('название должно быть строкой')
+Метод __verify_weight() проверяет, что вес должен быть положительным числом (строго больше нуля), если это не так, то генерируется исключение командой:
 
-    @old.setter
-    def old(self, value):
-        self.__old = value
+raise TypeError('вес должен быть положительным числом')
+Данные методы следует вызывать всякий раз при записи новых значений в атрибуты _name и _weight (а также при их создании).
 
+На основе базового класса Furniture объявить следующие дочерние классы:
 
-animals = [Animal("Васька", "дворовый кот", 5),
-           Animal("Рекс", "немецкая овчарка", 8),
-           Animal("Кеша", "попугай", 3)]
+Closet - для представления шкафов;
+Chair - для представления стульев;
+Table - для представления столов.
+
+Объекты этих классов должны создаваться командами:
+
+obj = Closet(name, weight, tp, doors)   # tp: True - шкаф-купе; False - обычный шкаф; doors - число дверей (целое число)
+obj = Chair(name, weight, height)       # height - высота стула (любое положительное число)
+obj = Table(name, weight, height, square) # height - высота стола; square - площадь поверхности (любые положительные числа)
+В каждом объекте этих классов должны создаваться соответствующие защищенные атрибуты:
+
+- в объектах класса Closet: _name, _weight, _tp, _doors
+- в объектах класса Chair: _name, _weight, _height
+- в объектах класса Table: _name, _weight, _height, _square
+
+В каждом классе (Closet, Chair, Table) объявить метод:
+
+get_attrs()
+который возвращает кортеж из значений локальных защищенных атрибутов объектов этих классов.
+
+Пример использования классов (эти строчки в программе писать не нужно):
+
+cl = Closet('шкаф-купе', 342.56, True, 3)
+chair = Chair('стул', 14, 55.6)
+tb = Table('стол', 34.5, 75, 10)
+print(tb.get_attrs())
+P.S. В программе нужно объявить только классы. На экран выводить ничего не нужно.
