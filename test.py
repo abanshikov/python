@@ -1,52 +1,38 @@
-class Observer:
-    def update(self, data):
-        pass
+Объявите базовый класс Aircraft (самолет), объекты которого создаются командой:
 
-    def __hash__(self):
-        return hash(id(self))
+air = Aircraft(model, mass, speed, top)
+где model - модель самолета (строка); mass - подъемная масса самолета (любое положительное число); speed - максимальная скорость (любое положительное число); top - максимальная высота полета (любое положительное число).
 
+В каждом объекте класса Aircraft должны создаваться локальные атрибуты с именами: _model, _mass, _speed, _top и соответствующими значениями. Если передаваемые аргументы не соответствуют указанным критериям (строка, любое положительное число), то генерируется исключение командой:
 
-class Subject:
-    def __init__(self):
-        self.__observers = {}
-        self.__data = None
+raise TypeError('неверный тип аргумента')
+Далее, в программе объявите следующие дочерние классы:
 
-    def add_observer(self, observer):
-        self.__observers[observer] = observer
+PassengerAircraft - пассажирский самолет;
+WarPlane - военный самолет.
 
-    def remove_observer(self, observer):
-        if observer in self.__observers:
-            self.__observers.pop(observer)
+Объекты этих классов создаются командами:
 
-    def __notify_observer(self):
-        for ob in self.__observers:
-            ob.update(self.__data)
+pa = PassengerAircraft(model, mass, speed, top, chairs)  # chairs - число пассажирских мест (целое положительное число)
+wp = WarPlane(model, mass, speed, top, weapons) # weapons - вооружение (словарь); ключи - название оружия, значение - количество
+В каждом объекте классов PassengerAircraft и WarPlane должны формироваться локальные атрибуты с именами _chairs и _weapons соответственно. Инициализация остальных атрибутов должна выполняться через инициализатор базового класса.
 
-    def change_data(self, data):
-        self.__data = data
-        self.__notify_observer()
+В инициализаторах классов PassengerAircraft и WarPlane проверять корректность передаваемых аргументов chairs и weapons. Если тип данных не совпадает, то генерировать исключение командой:
 
+raise TypeError('неверный тип аргумента')
+Создайте в программе четыре объекта самолетов со следующими данными:
 
-class Data:
-    def __init__(self, temp, press, wet):
-        self.temp = temp    # температура
-        self.press = press  # давление
-        self.wet = wet      # влажность
+PassengerAircraft: МС-21, 1250, 8000, 12000.5, 140
+PassengerAircraft: SuperJet, 1145, 8640, 11034, 80
+WarPlane: Миг-35, 7034, 25000, 2000, {"ракета": 4, "бомба": 10}
+WarPlane: Су-35, 7034, 34000, 2400, {"ракета": 4, "бомба": 7}
+
+Все эти объекты представить в виде списка planes.
+
+P.S. В программе нужно объявить только классы и сформировать список На экран выводить ничего не нужно.
 
 
-class TemperatureView(Observer):
-    def update(self, data):
-        if data:
-            print(f'Текущая температура {data.temp}')
-
-
-class PressureView(Observer):
-    def update(self, data):
-        if data:
-            print(f'Текущее давление {data.press}')
-
-
-class WetView(Observer):
-    def update(self, data):
-        if data:
-            print(f'Текущая влажность {data.wet}')
+planes = [PassengerAircraft('МС-21', 1250, 8000, 12000.5, 140),
+          PassengerAircraft('SuperJet', 1145, 8640, 11034, 80),
+          WarPlane('Миг-35', 7034, 25000, 2000, {"ракета": 4, "бомба": 10}),
+          WarPlane('Су-35', 7034, 34000, 2400, {"ракета": 4, "бомба": 7})]
