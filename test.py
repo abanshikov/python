@@ -47,3 +47,5 @@ stars = [RedGiant('Альдебаран', 5, 3600, 'красный гигант'
 WhiteDwarf('Сириус А', 2.1, 9250, 'белый карлик', 2),
 WhiteDwarf('Сириус B', 1, 8200, 'белый карлик', 0.01),
 YellowDwarf('Солнце', 1, 6000, 'желтый карлик', 1)]
+
+white_dwarfs = list(filter(lambda x: isinstance(x, WhiteDwarf), stars))
