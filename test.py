@@ -9,7 +9,7 @@ class Planet:
 
 class SolarSystem:
     __slots__ = ('_mercury', '_venus', '_earth', '_mars', '_jupiter', '_saturn', '_uranus', '_neptune')
-    _instances = {}
+    __instance = None
 
     def __init__(self):
         self._mercury = Planet('Меркурий', 4878, 87.97, 1407.5)
@@ -21,12 +21,11 @@ class SolarSystem:
         self._uranus = Planet('Уран', 51118, 30665, 17.2)
         self._neptune = Planet('Нептун', 49528, 60150, 16.1)
 
-    def __call__(cls, *args, **kwargs):
-        if cls not in cls._instances:
-            instance = super().__call__(*args, **kwargs)
-            cls._instances[cls] = instance
-        return cls._instances[cls]
+    def __new__(cls, *args, **kwargs):
+        if cls.__instance is None:
+            cls.__instance = super().__new__(cls)
 
+        return cls.__instance
 
 
 s_system = SolarSystem()
