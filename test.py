@@ -14,3 +14,22 @@ monotype: (InitVar[bool]: с исключением из операций сра
 
 font: name="Tahoma"; size=22.
 P.S. На экран ничего выводить не нужно
+
+
+from dataclasses import dataclass, field, InitVar
+
+
+@dataclass
+class FontData:
+    name: str
+    size: float
+    color: int = field(compare=False, default=0)
+    type_font: str = field(default=0)
+    monotype: InitVar[bool] = field(compare=False, default=False)
+
+    def __post_init__(self, monotype: bool):
+        if not self.monotype:
+            self.type_font = "regular"
+
+
+font = FontData(name="Tahoma", size=22)
