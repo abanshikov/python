@@ -1,20 +1,16 @@
+С помощью декоратора dataclass и функции field:
+
 from dataclasses import dataclass, field
+объявите Data Class с именем Velocity и следующим набором полей (порядок важен):
 
+model (str: с исключением из операций сравнения);
+speed (float: с исключением из параметров инициализатора и начальным значением 0);
+weight (float: вес);
+dims (tuple: с исключением из операций сравнения и метода __repr__ и начальным значением None).
+Создайте два объекта с именами vl1, vl2 класса Velocity с данными:
 
-@dataclass
-class PolyLine:
-    width: float = field(compare=False)
-    color: int = field(compare=False, default=0)
-    points: list = field(default_factory=list)
+vl1: model="car"; weight=5.4; dims=(100, 20, 30);
+vl2: model="ship"; weight=5.4; dims=(500, 200, 130).
+Выполните сравнение на равенство этих двух объектов. Результат (булево значение) сохраните в переменной res.
 
-    def __post_init__(self):
-        self.points = [(0, 0)]
-
-
-pl1 = PolyLine(width=0.5, color=0)
-pl2 = PolyLine(width=1.5, color=2)
-
-pl1.points.extend([(10, -5), (12, 1)])
-pl2.points.extend([(10, -5), (12, 1)])
-
-res = pl1 == pl2
+P.S. На экран ничего выводить не нужно.
