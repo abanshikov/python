@@ -1,51 +1,19 @@
-class Star:
-    __slots__ = ('_name', '_massa', '_temp')
+С помощью декоратора dataclass и функции field:
 
-    def __init__(self, name, massa, temp):
-        self._name = name
-        self._massa = massa
-        self._temp = temp
+from dataclasses import dataclass, field
+объявите Data Class с именем PolyLine и следующим набором полей (порядок важен):
 
+width (float: с исключением из операций сравнения);
+color (int: с исключением из операций сравнения и начальным значением 0);
+points (list: список с начальным значением кортежа (0, 0), то есть, первый элемент списка - это кортеж (0, 0)).
+Создайте два объекта с именами pl1, pl2 класса PolyLine с данными:
 
-class WhiteDwarf(Star):
-    __slots__ = ('_type_star', '_radius')
+pl1: width=0.5; color=0;
+pl2: width=1.5; color=2.
+После этого добавьте в объекты следующие координаты (в список points):
 
-    def __init__(self, name, massa, temp, type_star, radius):
-        super().__init__(name, massa, temp)
-        self._type_star = type_star
-        self._radius = radius
+pl1: [(10, -5), (12, 1)];
+pl2: [(10, -5), (12, 1)].
+Выполните сравнение на равенство этих двух объектов. Результат (булево значение) сохраните в переменной res.
 
-
-class YellowDwarf(Star):
-    __slots__ = ('_type_star', '_radius')
-
-    def __init__(self, name, massa, temp, type_star, radius):
-        super().__init__(name, massa, temp)
-        self._type_star = type_star
-        self._radius = radius
-
-
-class RedGiant(Star):
-    __slots__ = ('_type_star', '_radius')
-
-    def __init__(self, name, massa, temp, type_star, radius):
-        super().__init__(name, massa, temp)
-        self._type_star = type_star
-        self._radius = radius
-
-
-class Pulsar(Star):
-    __slots__ = ('_type_star', '_radius')
-
-    def __init__(self, name, massa, temp, type_star, radius):
-        super().__init__(name, massa, temp)
-        self._type_star = type_star
-        self._radius = radius
-
-
-stars = [RedGiant('Альдебаран', 5, 3600, 'красный гигант', 45),
-WhiteDwarf('Сириус А', 2.1, 9250, 'белый карлик', 2),
-WhiteDwarf('Сириус B', 1, 8200, 'белый карлик', 0.01),
-YellowDwarf('Солнце', 1, 6000, 'желтый карлик', 1)]
-
-white_dwarfs = list(filter(lambda x: isinstance(x, WhiteDwarf), stars))
+P.S. На экран ничего выводить не нужно
