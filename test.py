@@ -1,18 +1,16 @@
-from dataclasses import dataclass, field
+С помощью декоратора dataclass, функции field и класса InitVar:
 
+from dataclasses import dataclass, field, InitVar
+объявите Data Class с именем FontData и следующим набором полей (порядок важен):
 
-@dataclass
-class Velocity:
-    model: str = field(compare=False)
-    speed: float = field(init=False, default=0)
-    weight: float
-    dims: tuple = field(default_factory=tuple, repr=False)
+name (str: название шрифта);
+size (float: размер шрифта);
+color (int: цвет шрифта с исключением из операций сравнения и начальным значением 0);
+type_font (str: тип шрифта с начальным значением None);
+monotype: (InitVar[bool]: с исключением из операций сравнения и начальным значением False)
+В методе __post_init__ определите значение атрибута type_font со значением "regular", если параметр monotype равен False. В противном случае атрибут type_font не менять.
 
-    def __post_init__(self):
-        self.dims = None
+Создайте объект с именем font класса FontData с данными:
 
-
-vl1 = Velocity(model="car", weight=5.4, dims=(100, 20, 30))
-vl2 = Velocity(model="ship", weight=5.4, dims=(500, 200, 130))
-
-res = vl1 == vl2
+font: name="Tahoma"; size=22.
+P.S. На экран ничего выводить не нужно
