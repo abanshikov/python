@@ -1,35 +1,36 @@
-С помощью декоратора dataclass, функции field и класса InitVar:
+С помощью декоратора dataclass:
 
-from dataclasses import dataclass, field, InitVar
-объявите Data Class с именем FontData и следующим набором полей (порядок важен):
+from dataclasses import dataclass
+объявите Data Class с именем Volume без добавления инициализатора и метода __repr__ и со следующим набором полей (порядок важен):
 
-name (str: название шрифта);
-size (float: размер шрифта);
-color (int: цвет шрифта с исключением из операций сравнения и начальным значением 0);
-type_font (str: тип шрифта с начальным значением None);
-monotype: (InitVar[bool]: с исключением из операций сравнения и начальным значением False)
-В методе __post_init__ определите значение атрибута type_font со значением "regular", если параметр monotype равен False. В противном случае атрибут type_font не менять.
+height (int: высота);
+width (int: ширина);
+depth (int: глубина).
+Также в классе Volume объявите метод get_volume, который бы возвращал объем, вычисленный по формуле:
 
-Создайте объект с именем font класса FontData с данными:
+V
+=
+h
+e
+i
+g
+h
+t
+⋅
+w
+i
+d
+t
+h
+ 
+⋅
+d
+e
+p
+t
+h
+V=height⋅width ⋅depth
 
-font: name="Tahoma"; size=22.
+Создайте объект с именем v класса Volume. Задайте значения локальных атрибутов height, width, depth объекта v значениями 10, 20, 30 соответственно. Вызовите метод get_volume для объекта v и результат сохраните в переменной res.
+
 P.S. На экран ничего выводить не нужно
-
-
-from dataclasses import dataclass, field, InitVar
-
-
-@dataclass
-class FontData:
-    name: str
-    size: float
-    color: int = field(compare=False, default=0)
-    type_font: str = field(default=0)
-    monotype: InitVar[bool] = field(compare=False, default=False)
-
-    def __post_init__(self, monotype: bool):
-        if not self.monotype:
-            self.type_font = "regular"
-
-
-font = FontData(name="Tahoma", size=22)
