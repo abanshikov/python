@@ -8,29 +8,30 @@ width (int: ширина);
 depth (int: глубина).
 Также в классе Volume объявите метод get_volume, который бы возвращал объем, вычисленный по формуле:
 
-V
-=
-h
-e
-i
-g
-h
-t
-⋅
-w
-i
-d
-t
-h
- 
-⋅
-d
-e
-p
-t
-h
 V=height⋅width ⋅depth
 
 Создайте объект с именем v класса Volume. Задайте значения локальных атрибутов height, width, depth объекта v значениями 10, 20, 30 соответственно. Вызовите метод get_volume для объекта v и результат сохраните в переменной res.
 
 P.S. На экран ничего выводить не нужно
+
+
+
+from dataclasses import dataclass
+
+
+@dataclass(init=False, repr=False)
+class Volume:
+    height: int
+    width: int
+    depth: int
+
+    def get_volume(self):
+        return self.height * self.width * self.depth
+
+
+v = Volume()
+v.height = 10
+v.width = 20
+v.depth = 30
+
+res = v.get_volume()
