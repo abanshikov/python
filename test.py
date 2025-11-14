@@ -1,68 +1,27 @@
-В программе ниже объявлен класс Table следующим образом:
+В программе ниже объявлен класс GlobalGraphData следующим образом:
 
-@dataclass
-class Table:
-    current_id = 0
-    id: int = field(init=False, compare=False, default=-1)
-    model: str
-    color: Any
+class GlobalGraphData:
+    colors = ['blue', 'red', 'green', 'cyan', 'yellow', 'gray']
 
-    def __post_init__(self):
-        Table.current_id += 1
-        self.id = Table.current_id
-Необходимо продолжить эту программу и объявить дочерний класс RoundTable от базового класса Table, как Data Class, используя декоратор dataclass. Дочерний класс RoundTable должен содержать следующие поля (порядок важен):
+    @staticmethod
+    def get_color():
+        return GlobalGraphData.colors[random.randint(0, len(GlobalGraphData.colors)-1)]
+Необходимо продолжить эту программу и объявить дата-класс Graph, используя декоратор dataclass, со следующим набором полей (порядок важен):
 
-radius (InitVar с типом int: радиус столешницы);
-height (int: высота стола).
-square (float: площадь столешницы; с исключением из параметров инициализатора и операций сравнения).
-Объявите метод __post_init__ в классе RoundTable, в котором выполните расчет площади столешницы по формуле:
+width (float: с исключением из параметров инициализатора и операций сравнения; начальное значение 0.5);
+color (Any: начальное значение генерируется методом get_color класса GlobalGraphData; с исключением из параметров инициализатора и операций сравнения).
+Следом объявите еще один дата-класс Rect на базе класса Graph, используя декоратор dataclass, со следующим набором полей (порядок важен):
 
-S=3.1415⋅radius 
-2
- 
+sp (tuple: координата верхнего левого угла прямоугольника);
+ep (tuple: координата нижнего правого угла прямоугольника).
+В классе Rect объявите метод draw, который должен возвращать строку формата (без кавычек):
 
-с сохранением результата в локальном атрибуте self.square. При реализации метода __post_init__ следует учесть вызов такого же метода базового класса.
+"Rect: (x0, y0); (x1, y1)"
 
-Создайте объект rt класса RoundTable со следующим набором данных:
+где (x0, y0) - координаты верхнего левого угла прямоугольника (значения берутся из поля sp); (x1, y1) - координаты нижнего правого угла прямоугольника (значения берутся из поля ep).
 
-model: "RT"; color: "green"; radius: 120; height: 90
+Создайте объект rect класса Rect с координатами:
 
-P.S. На экран ничего выводить не нужно.
-
-
-rt = RoundTable("RT", "green", 120, 90)
-
-
-
-
-from dataclasses import dataclass, field, InitVar
-from typing import Any
-
-
-@dataclass
-class Table:
-    current_id = 0
-    id: int = field(init=False, compare=False, default=-1)
-    model: str
-    color: Any
-
-    def __post_init__(self):
-        Table.current_id += 1
-        self.id = Table.current_id
-
-
-@dataclass
-class RoundTable(Table):
-    radius: InitVar[int]
-    height: int
-    square: float = field(init=False, compare=False)
-
-    def __post_init__(self, radius):
-        super().__post_init__()
-        self.square = 3.1415 * (radius ** 2)
-
-
-rt = RoundTable(model="RT", color="green", radius=120, height=90)
-
-
-print(rt)
+sp: (1, 2);
+ep: (10, 20).
+P.S. На экран ничего выводить не нужно
