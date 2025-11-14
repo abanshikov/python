@@ -1,46 +1,33 @@
-Продолжите программу, в которой с помощью декоратора dataclass объявите класс Animal со следующим набором полей (порядок важен):
-
-name (str: имя животного);
-
-old (int: возраст животного);
-
-weight (Any: вес животного).
-
-На основе класса Animal с помощью декоратора dataclass объявите дочерний класс Turtle (черепаха) со следующим набором полей (порядок важен):
-
-weight (float: вес черепахи);
-
-length (float: длина черепахи);
-
-speed (float: скорость черепахи, с исключением из параметров инициализатора и начальным значением 0).
-
-Создайте объект t класса Turtle со следующим набором данных:
-
-name: "Черя"; old: 94; weight: 3.5; length: 108
-
-P.S. На экран ничего выводить не нужно
-
-
-
-from dataclasses import dataclass, field
-from typing import Any
-
+В программе ниже объявлен класс Table следующим образом:
 
 @dataclass
-class Animal:
-    name: str
-    old: int
-    weight: Any
+class Table:
+    current_id = 0
+    id: int = field(init=False, compare=False, default=-1)
+    model: str
+    color: Any
+
+    def __post_init__(self):
+        Table.current_id += 1
+        self.id = Table.current_id
+Необходимо продолжить эту программу и объявить дочерний класс RoundTable от базового класса Table, как Data Class, используя декоратор dataclass. Дочерний класс RoundTable должен содержать следующие поля (порядок важен):
+
+radius (InitVar с типом int: радиус столешницы);
+height (int: высота стола).
+square (float: площадь столешницы; с исключением из параметров инициализатора и операций сравнения).
+Объявите метод __post_init__ в классе RoundTable, в котором выполните расчет площади столешницы по формуле:
+
+S=3.1415⋅radius 
+2
+ 
+
+с сохранением результата в локальном атрибуте self.square. При реализации метода __post_init__ следует учесть вызов такого же метода базового класса.
+
+Создайте объект rt класса RoundTable со следующим набором данных:
+
+model: "RT"; color: "green"; radius: 120; height: 90
+
+P.S. На экран ничего выводить не нужно.
 
 
-@dataclass
-class Turtle(Animal):
-    weight: float
-    length: float
-    speed: float = field(init=False, default=0)
-
-
-t = Turtle(name="Черя", old=94, weight=3.5, length=108)
-
-
-print(t)
+rt = RoundTable("RT", "green", 120, 90)
