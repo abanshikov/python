@@ -19,3 +19,28 @@ speed (float: скорость черепахи, с исключением из 
 name: "Черя"; old: 94; weight: 3.5; length: 108
 
 P.S. На экран ничего выводить не нужно
+
+
+
+from dataclasses import dataclass, field
+from typing import Any
+
+
+@dataclass
+class Animal:
+    name: str
+    old: int
+    weight: Any
+
+
+@dataclass
+class Turtle(Animal):
+    weight: float
+    length: float
+    speed: float = field(init=False, default=0)
+
+
+t = Turtle(name="Черя", old=94, weight=3.5, length=108)
+
+
+print(t)
