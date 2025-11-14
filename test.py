@@ -1,37 +1,20 @@
-С помощью декоратора dataclass:
+В программе ниже объявлен класс Thing следующим образом:
 
 from dataclasses import dataclass
-объявите Data Class с именем Volume без добавления инициализатора и метода __repr__ и со следующим набором полей (порядок важен):
+from typing import Any
 
-height (int: высота);
-width (int: ширина);
-depth (int: глубина).
-Также в классе Volume объявите метод get_volume, который бы возвращал объем, вычисленный по формуле:
 
-V=height⋅width ⋅depth
+@dataclass
+class Thing:
+    name: Any
+    color: Any
+    weight: float
+Необходимо продолжить эту программу и объявить дочерний класс Table от базового класса Thing, как Data Class, используя декоратор dataclass. Дочерний класс Table должен иметь следующие поля (порядок важен):
 
-Создайте объект с именем v класса Volume. Задайте значения локальных атрибутов height, width, depth объекта v значениями 10, 20, 30 соответственно. Вызовите метод get_volume для объекта v и результат сохраните в переменной res.
+width (float: ширина стола);
+height (float: высота стола).
+Создайте объект tb класса Table со следующим набором данных:
+
+name: "Suprise"; color: "red"; weight: 102.5; width: 0.45; height: 10.1
 
 P.S. На экран ничего выводить не нужно
-
-
-
-from dataclasses import dataclass
-
-
-@dataclass(init=False, repr=False)
-class Volume:
-    height: int
-    width: int
-    depth: int
-
-    def get_volume(self):
-        return self.height * self.width * self.depth
-
-
-v = Volume()
-v.height = 10
-v.width = 20
-v.depth = 30
-
-res = v.get_volume()
