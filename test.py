@@ -5,7 +5,7 @@ class GlobalGraphData:
 
     @staticmethod
     def get_color():
-        return GlobalGraphData.colors[random.randint(0, len(GlobalGraphData.colors)-1)]
+        return GlobalGraphData.colors[random.randint(0, 
 Необходимо продолжить эту программу и объявить дата-класс Graph, используя декоратор dataclass, со следующим набором полей (порядок важен):
 
 width (float: с исключением из параметров инициализатора и операций сравнения; начальное значение 0.5);
