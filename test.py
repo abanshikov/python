@@ -1,11 +1,11 @@
-Объявите класс модели с именем ShopItem для работы с таблицей следующей структуры:
+from django.db import models
 
-id: primary key (в модели не прописывается)
-name: CharField - строка с максимальной длиной 100 символов; обязательное поле;
-weight: IntegerField - вес товара с начальным значением 0; не обязательное поле;
-price: IntegerField - цена товара с начальным значением 0; обязательное поле;
-is_exists: BooleanField - наличие товара (True - присутствует; False - отсутствует); по умолчанию True.
 
-Используя метод all() стандартного менеджера записей класса ShopItem, выберите все записи из соответствующей таблицы БД и сохраните их в переменной records.
+class ShopItem(models.Model):
+    name = models.CharField(max_lenght=100)
+    weight = models.IntegerField(default=0, block=True)
+    price = models.IntegerField(default=0)
+    is_exists = models.BooleanField(default=True)
 
-P.S. На экран ничего выводить не нужно
+
+records = ShopItem().objects.all()
