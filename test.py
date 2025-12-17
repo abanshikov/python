@@ -1,16 +1,18 @@
-from django.db import models
+Объявите класс модели с именем Auto для работы с таблицей следующей структуры:
 
+id: primary key (в модели не прописывается)
+name: CharField - строка с максимальной длиной 100 символов; обязательное поле;
+model: CharField - марка машины; обязательное поле;
+price: IntegerField - цена машины с начальным значением 0; необязательное поле;
+distance: IntegerField - пробег машины с начальным значением 0; необязательное поле;
+is_exists: BooleanField - наличие товара (True - присутствует; False - отсутствует); по умолчанию True.
 
-class Auto(models.Model):
-    name = models.CharField(max_length=100)  # строка с максимальной длиной 100 символов; обязательное поле;
-    model = models.CharField()  # марка машины; обязательное поле;
-    price = models.IntegerField(default=0, blank=True)  # цена машины с начальным значением 0; необязательное поле;
-    is_exists = models.BooleanField(default=True)  # наличие товара (True - присутствует; False - отсутствует); по умолчанию True.
+С помощью класса Auto добавьте в БД следующие машины в порядке их перечисления:
 
+name="BMW X6"; model="BMW"; price=6000111;
+name="Toyota Corolla"; model="Toyota"; distance=72000;
+name="Haval 7"; model="Haval"; price=3500222;
 
-Auto.objects.create(name="BMW X6", model="BMW", price=6000111)
-Auto.objects.create(name="Toyota Corolla", model="Toyota")
-Auto.objects.create(name="Haval 7", model="Haval", price=3500222)
+Используя метод all() стандартного менеджера записей класса Auto выберите первые две записи из соответствующей таблицы БД. Результат сохраните в переменной autos.
 
-
-autos = Auto.objects.all()[0]
+P.S. На экран ничего выводить не нужно.
