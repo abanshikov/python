@@ -1,11 +1,20 @@
+Объявите класс модели с именем Auto для работы с таблицей следующей структуры:
+
+id: primary key (в модели не прописывается)
+name: CharField - строка с максимальной длиной 100 символов; обязательное поле;
+model: CharField - марка машины; обязательное поле;
+price: IntegerField - цена машины с начальным значением 0; необязательное поле;
+is_exists: BooleanField - наличие товара (True - присутствует; False - отсутствует); по умолчанию True.
+
+С помощью класса Auto добавьте в БД следующие машины в порядке их перечисления:
+
+name="BMW X6"; model="BMW"; price=6000111;
+name="Toyota Corolla"; model="Toyota";
+name="Haval 7"; model="Haval"; price=3500222;
+
+Используя метод all() стандартного менеджера записей класса Auto выберите первую запись из соответствующей таблицы БД. Результат сохраните в autos
+
+
+
 from django.db import models
 
-
-class ShopItem(models.Model):
-    name = models.CharField(max_lenght=100)
-    weight = models.IntegerField(default=0, block=True)
-    price = models.IntegerField(default=0)
-    is_exists = models.BooleanField(default=True)
-
-
-records = ShopItem().objects.all()
