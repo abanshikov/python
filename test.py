@@ -1,9 +1,16 @@
+. Объявите класс модели с именем Post следующей структуры:
+
+id: primary key (в модели явно не прописывается);
+slug: SlugField - slug поста, максимум 255 символов; уникальное, обязательное поле;
+title: CharField - строка, максимум 200 символов; обязательное поле;
+content: TextField - текст статьи; необязательное поле;
+time_create: DateTimeField - время создания записи (заполняется автоматически);
+time_update: DateTimeField - время последнего изменения записи (заполняется автоматически);
+is_published: BooleanField - флаг отображения поста (True - отображается; False - не отображается); по умолчанию False.
+
+P.S. На экран ничего выводить не нужно.
+
+
 from django.db import models
 
-class Person(models.Model):
-    full_name = models.CharField(max_length=255)
-    salary = models.PositiveIntegerField(default=0)
-    job = models.CharField(max_length=255)
-
-
-Person().objects.filter(job="Программист")
+# здесь объявляйте класс модели
