@@ -37,3 +37,6 @@ class AddPostForm(forms.Form):
 # from .forms import AddPostForm
 
 # здесь продолжайте программу
+def post_new(request):
+    form = AddPostForm()
+    return render('women/addpage.html', {'form': form})
