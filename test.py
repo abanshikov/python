@@ -19,3 +19,15 @@ class AddPostForm(forms.Form):
 при POST-запросе формируется заполненная форма AddPostForm; выполняется проверка корректности данных формы; если данные корректны, то возвращается объект формы;
 при GET-запросе создается пустая форма AddPostForm; с помощью функции render формируется HTML-документ по шаблону 'women/addpage.html' с передачей в него объекта формы AddPostForm через переменную (ключ) form.
 P.S. На экран ничего выводить не нужно
+
+
+def post_new(request):
+    if request.method == "POST":
+        form = AddPostForm(request.POST)
+        if form.is_valid():
+            return form
+    else:
+        form = AddPostForm()
+
+    data = {'form': form}
+    return render(request, 'women/addpage.html', data)
