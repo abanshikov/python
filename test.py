@@ -3,9 +3,9 @@ class LoginForm(forms.Form):
                                min_length=5,
                                label='Логин',
                                widget=forms.TextInput(attrs={'class': 'form-login-input'}))
-    password = froms.CharField(min_length=6,
+    password = forms.CharField(min_length=6,
                                label='Пароль',
-                               widget=forms.TextInput(attrs={'class': 'form-login-input'}))
+                               widget=forms.PasswordInput(attrs={'class': 'form-login-input'}))
 
     def clean_password(self):
         password = self.cleaned_data['password']
