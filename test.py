@@ -1,24 +1,18 @@
-# --------------- forms.py -------------------------
-from django import forms
+Объявите класс формы с именем CardForm, не связанной с моделью, со следующими полями:
 
-# здесь объявляйте класс формы
-class CommentForm:
-    username = forms.CharField(max_length=100)
-    email = forms.EmailField()
-    agree froms.BooleanField()
-    content = forms.CharField(widget=forms.Textarea)
+fio: текстовое поле; максимальная длина 200 символов, минимальная длина 10 символов, обязательное, название "Владелец";
+email: поле ввода адреса электронной почты; минимальная длина 5 символов, обязательное, название "E-mail";
+city: текстовое поле; минимальная длина 2 символа, обязательное, название "Город";
+is_rf: булево поле (checkbox); по умолчанию True, обязательное, название "Гражданство РФ".
 
-# --------------- views.py -------------------------
-# from django.shortcuts import render
-# from .forms import CommentForm
+Атрибуты класса должны иметь те же названия и порядок, что и в описании. То есть: fio, email, city и т.д.
 
-# здесь объявляйте функцию представления
-def comment_add(request):
-    if request.method = "POST":
-        form = CommentForm(request.POST)
-        if form.is_valid():
-            return form
-    else:
-        form = CommentForm()
+Для поля fio дополнительно пропишите вывод сообщений об ошибках для валидаторов:
 
-    return render(request, 'user/comment_add.html', {'form': form})
+превышения числа символов: "Слишком длинная строка";
+
+недостаточного числа символов: "Слишком короткая строка".
+
+Для поля email через параметр widget укажите стили оформления: attrs={'class': 'form-input'} 
+
+P.S. На экран ничего выводить не нужно
