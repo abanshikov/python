@@ -4,6 +4,15 @@ from django import forms
 from django.core.validators import MinValueValidator, MaxValueValidator
 
 # здесь продолжайте программу
+field = forms.IntegerFields(max_length=20, min_length=-100,
+                            validators=[
+                                MinLengthValidator(-100, message="Минимальное значение -100"),
+                                MaxLengthValidator(20, message="Максимальное значение 20"),
+                            ])
+
+
+
+
 Определите целочисленное поле формы с ограничениями по диапазону вводимых данных от -100 до 20 включительно (через параметры min_value и max_value). Эти ограничения должны действовать и на уровне формы в браузере и на уровне сервера при ее обработке. Также добавьте валидаторы MinValueValidator и MaxValueValidator. В каждом из них определите следующие сообщения об ошибках:
 
 MinValueValidator: "Минимальное значение -100";
