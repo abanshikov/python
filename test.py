@@ -1,3 +1,19 @@
+class CardForm(forms.Form):
+    fio = forms.CharField(max_length=100,
+                          min_length=10,
+                          label='Владелец',
+                          error_messages={
+                                "min_length": "Слишком короткая строка",
+                                "max_length": "Слишком длинная строка",})
+    email = forms.EmailField(min_length=5,
+                             labels='E-mail',
+                             widget=forms.EmailField(attrs={'class': 'form-input'}))
+    city = forms.CharField(min_length=2, label='Город')
+    is_rf = forms.BooleanField(initial=True, label='Гражданство РФ')
+
+
+
+
 Объявите класс формы с именем CardForm, не связанной с моделью, со следующими полями:
 
 fio: текстовое поле; максимальная длина 200 символов, минимальная длина 10 символов, обязательное, название "Владелец";
